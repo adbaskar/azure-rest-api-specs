@@ -1590,17 +1590,37 @@
           "type": "boolean",
           "description": "If remote gateways can be used on this virtual network. If the flag is set to true, and allowGatewayTransit on remote peering is also true, virtual network will use gateways of remote virtual network for transit. Only one peering can have this flag set to true. This flag cannot be set if virtual network already has a gateway."
         },
+        "peerCompleteVnets": {
+          "type": "boolean",
+          "description": "If complete Vnet address space needs to be peered then set the flag to true. Set to false to speicfy specific address space or specific subnet peering"
+        },
+        "localSubnetNames": {
+          "type": "array",
+          "description": "Specify the names of the subnets of the local virtual network that needs to be peered"
+        },
+        "remoteSubnetNames": {
+          "type": "array",
+          "description": "Specify the names of the subnets of the remote virtual network that needs to be peered"
+        },
         "remoteVirtualNetwork": {
           "$ref": "./network.json#/definitions/SubResource",
           "description": "The reference to the remote virtual network. The remote virtual network can be in the same or different region (preview). See here to register for the preview and learn more (https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-create-peering)."
         },
         "remoteAddressSpace": {
           "$ref": "#/definitions/AddressSpace",
-          "description": "The reference to the address space peered with the remote virtual network."
+          "description": "The reference to the address space of the remote virtual network that is peered."
         },
         "remoteVirtualNetworkAddressSpace": {
           "$ref": "#/definitions/AddressSpace",
-          "description": "The reference to the current address space of the remote virtual network."
+          "description": "The reference to the address space of the remote virtual network that needs to be peered. Will be the address space of the complete vnet if peerCompleteVnets is true else it will be the address space of the subnets speified in remoteSubnetNames."
+        },
+        "localAddressSpace": {
+          "$ref": "#/definitions/AddressSpace",
+          "description": "The reference to the address space of the parent virtual network that is peered."
+        },
+        "localVirtualNetworkAddressSpace": {
+          "$ref": "#/definitions/AddressSpace",
+          "description": "The reference to the address space of the parent virtual network that needs to be peered. Will be the address space of the complete vnet if peerCompleteVnets is true else it will be the address space of the subnets speified in localSubnetNames."
         },
         "remoteBgpCommunities": {
           "$ref": "#/definitions/VirtualNetworkBgpCommunities",
